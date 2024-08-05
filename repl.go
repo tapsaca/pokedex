@@ -17,13 +17,17 @@ func startRepl(config *config) {
 			continue
 		}
 		commandName := input[0]
+		args := []string{}
+		if len(input) > 1 {
+			args = input[1:]
+		}
 		availableCommands := getCommands()
 		command, ok := availableCommands[commandName]
 		if !ok {
 			fmt.Println(("Invalid command"))
 			continue
 		}
-		error := command.callback(config)
+		error := command.callback(config, args...)
 		if error != nil {
 			fmt.Println(error)
 		}
@@ -40,6 +44,11 @@ func getCommands() map[string]cliCommand {
 			name: "exit",
 			description: "closes the program",
 			callback: callbackExit,
+		},
+		"explore": {
+			name: "explore {location-area}",
+			description: "Lists the pokemon in a location area",
+			callback: callbackExplore,
 		},
 		"help": {
 			name: "help",
@@ -62,5 +71,5 @@ func getCommands() map[string]cliCommand {
 type cliCommand struct {
 	name string
 	description string
-	callback func(*config) error
+	callback func(*config, ...string) error
 }

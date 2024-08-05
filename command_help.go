@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func callbackHelp(config *config) error {
+func callbackHelp(config *config, args ...string) error {
 	fmt.Println("")
 	fmt.Println("Available commands:")
 	availableCommands := getCommands()
