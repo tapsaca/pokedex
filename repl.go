@@ -40,6 +40,11 @@ func cleanInput(str string) []string {
 
 func getCommands() map[string]cliCommand {
 	return map[string]cliCommand {
+		"catch": {
+			name: "catch {pokemon}",
+			description: "Attempt to catch a pokemon and add it to your pokedex",
+			callback: callbackCatch,
+		},
 		"exit": {
 			name: "exit",
 			description: "closes the program",
